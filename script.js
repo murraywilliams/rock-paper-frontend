@@ -1,4 +1,5 @@
 const overlay = document.querySelector('.overlay');
+const roundDOM = document.querySelector('.rounds');
 const buttons = document.querySelectorAll('#rock, #paper, #scissors');
 const rockBtn = document.querySelector('#rock');
 const paperBtn = document.querySelector('#paper');
@@ -30,9 +31,11 @@ playBtn.addEventListener('click', function() {
 });
 
 function startGame() {
-  console.log('Game started');
+  Game.round++;
+  if (Game.round > 0) {
+    playBtn.innerHTML = 'Play Again...';
+  }
   // reset all values to emtpy
-
   playerValue.innerHTML = Player.choice;
   computerValue.innerHTML = Computer.choice;
   playerScoreEl.innerHTML = Player.score;
@@ -61,7 +64,6 @@ function getWinner() {
 
     });
   }
-
 }
 
 // create function to check for winner
@@ -74,10 +76,11 @@ function computerChoice(){
   Computer.choice = String(choices[rdmNum]);
   computerValue.classList = 'computer-choice show';
   computerValue.innerHTML = Computer.choice;
+
   setTimeout(function(){
     overlay.style.display = 'block';
-  },4000)
-  console.log(container);
+    roundDOM.innerHTML = `Round ${Game.round}/5`;
+  },3000)
 }
 
 

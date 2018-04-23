@@ -12,8 +12,7 @@ body {
 }
 .container {
   max-width: 1024px;
-  padding-left: 10%;
-  padding-right: 10%;
+  margin: 0 auto;
 }
 .overlay {
   position: absolute;
@@ -23,6 +22,7 @@ body {
   background: #323232;
 }
 .replay {
+  border: 3px solid #FFC70B;
   background: #FFC70B;
   padding: 20px;
   font-size: 55px;
@@ -30,13 +30,19 @@ body {
   color: #323232;
   width: 200px;
   text-align: center;
-  margin: 15% auto;
+  margin: 15% auto 10px auto;
 }
 .replay:hover {
   border: 3px solid #FFC70B;
   background: none;
   color: #FFC70B;
   cursor: pointer;
+}
+.rounds {
+  color: white;
+  font-family: 'Annie Use Your Telescope', cursive;
+  text-align: center;
+  font-size: 25px;
 }
 .selection-heading {
   font-family: 'Annie Use Your Telescope', cursive;
@@ -82,7 +88,7 @@ body {
   display: block;
   background: #FFC70B;
   padding: 20px;
-  width: 50%;
+  width: 60%;
   font-size: 55px;
   font-family: 'Luckiest Guy', cursive;
   color: #323232;
@@ -121,7 +127,7 @@ body {
   display: block;
   background: #FFC70B;
   padding: 20px;
-  width: 50%;
+  width: 60%;
   font-size: 55px;
   font-family: 'Luckiest Guy', cursive;
   color: #323232;
