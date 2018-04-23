@@ -44,6 +44,11 @@ body {
   text-align: center;
   font-size: 25px;
 }
+img.logo {
+  display: inherit;
+  margin: 20px auto;
+  width: 350px;
+}
 .selection-heading {
   font-family: 'Annie Use Your Telescope', cursive;
   text-align: center;
