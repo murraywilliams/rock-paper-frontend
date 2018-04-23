@@ -1,4 +1,4 @@
-
+const overlay = document.querySelector('.overlay');
 const buttons = document.querySelectorAll('#rock, #paper, #scissors');
 const rockBtn = document.querySelector('#rock');
 const paperBtn = document.querySelector('#paper');
@@ -11,105 +11,115 @@ const playBtn = document.querySelector('.replay');
 const playerResult = document.querySelector('.player-result');
 const computerResult = document.querySelector('.computer-result');
 
-let playerScore = 0;
-let computerScore = 0;
+let Player = {
+  choice: '',
+  score: 0
+}
+let Computer = {
+  choice: '',
+  score: 0
+}
+let Game = {
+  round: 0,
+  winner: '',
+}
 
-// window.onload = game();
-
-playBtn.addEventListener('click', function () {
-  playerValue.classList = 'player-choice';
-  computerValue.classList = 'computer-choice';
-  rockBtn.disabled = false;
-  paperBtn.disabled = false;
-  scissorBtn.disabled = false;
-  computerResult.classList = 'computer-result';
-  playerResult.classList = 'player-result';
-  playerScoreEl.innerHTML = playerScore;
-  computerScoreEl.innerHTML = computerScore;
-  playerValue.innerHTML = '';
-  computerValue.innerHTML = '';
-  console.log('Player Score', playerScore);
-  console.log('Computer Score', computerScore);
-  game();
+playBtn.addEventListener('click', function() {
+  overlay.style.display = 'none';
+  startGame();
 });
 
-function game(){
+function startGame() {
+  console.log('Game started');
+  // reset all values to emtpy
+
+  playerValue.innerHTML = Player.choice;
+  computerValue.innerHTML = Computer.choice;
+  playerScoreEl.innerHTML = Player.score;
+  computerScoreEl.innerHTML = Computer.score;
+  playerValue.classList = 'player-choice';
+  computerValue.classList = 'computer-choice';
+  computerResult.classList = 'computer-result';
+  playerResult.classList = 'player-result';
+  rockBtn.style.visibility = 'visible';
+  paperBtn.style.visibility = 'visible';
+  scissorBtn.style.visibility = 'visible';
+  getWinner();
+}
+
+
+// create function to to hold player + computer selection and disable RPS buttons
+function getWinner() {
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function () {
-      let player = String(buttons[i].innerHTML);
-      Choices(player);
-      rockBtn.disabled = true;
-      paperBtn.disabled = true;
-      scissorBtn.disabled = true;
+      Player.choice = String(buttons[i].innerHTML);
+      playerValue.classList = 'player-choice show';
+      playerValue.innerHTML = Player.choice;
+      setTimeout(function(){
+        computerChoice();
+      }, 1000);
+
     });
   }
-}
-
-
-function Choices(player) {
-  playerValue.classList = 'player-choice show';
-  playerValue.innerHTML = player;
-  setTimeout(function(){
-    computerChoice();
-    checkResults();
-  }, 1000);
 
 }
+
+// create function to check for winner
+// create nextRound() that will keep player, computer score but clear out everything else
+
 
 function computerChoice(){
   const choices = ['Rock', 'Paper', 'Scissors'];
   const rdmNum = Math.floor(Math.random() * 3);
-  result = String(choices[rdmNum]);
+  Computer.choice = String(choices[rdmNum]);
   computerValue.classList = 'computer-choice show';
-  computerValue.innerHTML = result;
+  computerValue.innerHTML = Computer.choice;
+  setTimeout(function(){
+    overlay.style.display = 'block';
+  },4000)
+  console.log(container);
 }
 
+
 function checkResults() {
-  const player = playerValue.innerHTML;
-  const computer = computerValue.innerHTML;
-  if (player == 'Rock') {
-    if (computer == 'Paper') {
+
+  console.log('Player: ', playerSelection, 'Score: ', playerScoreEl);
+  console.log('Computer: ', playerSelection, 'Score: ', computerScoreEl);
+  if (playerSelection == 'Rock') {
+    if (computerSelection == 'Paper') {
       computerWins();
-      computerScore++;
-    } else if (computer == 'Scissors') {
+
+    } else if (computerSelection == 'Scissors') {
       playerWins();
-      playerScore++;
+
     } else {
-      computerResult.innerHTML = 'It\'s a tie!';
-      computerResult.classList = 'computer-result show';
-      playerResult.innerHTML = 'It\'s a tie!';
-      playerResult.classList = 'player-result show';
+      tie()
     }
-  } else if (player == 'Paper') {
-    if (computer == 'Rock') {
+  } else if (playerSelection == 'Paper') {
+    if (computerSelection == 'Rock') {
       playerWins();
-      playerScore++;
-    } else if (computer == 'Scissors') {
+
+    } else if (computerSelection == 'Scissors') {
       computerWins();
-      computerScore++;
+
     } else {
-      computerResult.innerHTML = 'It\'s a tie!';
-      computerResult.classList = 'computer-result show';
-      playerResult.innerHTML = 'It\'s a tie!';
-      playerResult.classList = 'player-result show';
+      tie()
     }
-  } else if (player == 'Scissors') {
-    if (computer == 'Rock') {
+  } else if (playerSelection == 'Scissors') {
+    if (computerSelection == 'Rock') {
       computerWins();
-      computerScore++;
-    } else if (computer == 'Paper') {
+
+    } else if (computerSelection == 'Paper') {
       playerWins();
-      playerScore++;
+
     } else {
-      computerResult.innerHTML = 'It\'s a tie!';
-      computerResult.classList = 'computer-result show';
-      playerResult.innerHTML = 'It\'s a tie!';
-      playerResult.classList = 'player-result show';
+      tie()
     }
   }
 }
 
 function playerWins() {
+  playerScore++;
   playerResult.innerHTML = 'Player Wins!';
   playerResult.classList = 'player-result show';
   computerResult.classList = 'computer-result';
@@ -118,6 +128,7 @@ function playerWins() {
 }
 
 function computerWins() {
+  computerScore++;
   computerResult.innerHTML = 'Computer Wins!';
   computerResult.classList = 'computer-result show';
   playerResult.classList = 'player-result';

@@ -15,6 +15,13 @@ body {
   padding-left: 10%;
   padding-right: 10%;
 }
+.overlay {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  background: #323232;
+}
 .replay {
   background: #FFC70B;
   padding: 20px;
@@ -23,10 +30,11 @@ body {
   color: #323232;
   width: 200px;
   text-align: center;
-  margin: 30px auto;
+  margin: 15% auto;
 }
 .replay:hover {
-  background: #323232;
+  border: 3px solid #FFC70B;
+  background: none;
   color: #FFC70B;
   cursor: pointer;
 }
