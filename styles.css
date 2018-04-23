@@ -15,6 +15,21 @@ body {
   padding-left: 10%;
   padding-right: 10%;
 }
+.replay {
+  background: #FFC70B;
+  padding: 20px;
+  font-size: 55px;
+  font-family: 'Luckiest Guy', cursive;
+  color: #323232;
+  width: 200px;
+  text-align: center;
+  margin: 30px auto;
+}
+.replay:hover {
+  background: #323232;
+  color: #FFC70B;
+  cursor: pointer;
+}
 .selection-heading {
   font-family: 'Annie Use Your Telescope', cursive;
   text-align: center;
