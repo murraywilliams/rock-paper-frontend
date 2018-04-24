@@ -12,15 +12,9 @@ const playBtn = document.querySelector('.replay');
 const playerResult = document.querySelector('.player-result');
 const computerResult = document.querySelector('.computer-result');
 
-let Player = {
-  choice: '',
-  score: 0
-}
-let Computer = {
-  choice: '',
-  score: 0
-}
 let Game = {
+  computer: {choice: '', score: ''},
+  player: {choice: '', score: ''},
   round: 0,
   winner: '',
 }
@@ -32,14 +26,18 @@ playBtn.addEventListener('click', function() {
 
 function startGame() {
   Game.round++;
-  if (Game.round > 0) {
+  if (Game.round >= 2) {
+    playBtn.innerHTML = 'Game Over.';
+    restartGame();
+  } else if (Game.round > 0) {
     playBtn.innerHTML = 'Play Again...';
+
   }
   // reset all values to emtpy
-  playerValue.innerHTML = Player.choice;
-  computerValue.innerHTML = Computer.choice;
-  playerScoreEl.innerHTML = Player.score;
-  computerScoreEl.innerHTML = Computer.score;
+  playerValue.innerHTML = Game.player.choice;
+  computerValue.innerHTML = Game.computer.choice;
+  playerScoreEl.innerHTML = Game.player.score;
+  computerScoreEl.innerHTML = Game.computer.score;
   playerValue.classList = 'player-choice';
   computerValue.classList = 'computer-choice';
   computerResult.classList = 'computer-result';
@@ -50,14 +48,19 @@ function startGame() {
   getWinner();
 }
 
+function restartGame() {
+  Game.round = 0;
+  startGame();
+}
+
 
 // create function to to hold player + computer selection and disable RPS buttons
 function getWinner() {
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function () {
-      Player.choice = String(buttons[i].innerHTML);
+      Game.player.choice = String(buttons[i].innerHTML);
       playerValue.classList = 'player-choice show';
-      playerValue.innerHTML = Player.choice;
+      playerValue.innerHTML = Game.player.choice;
       setTimeout(function(){
         computerChoice();
       }, 1000);
@@ -73,9 +76,9 @@ function getWinner() {
 function computerChoice(){
   const choices = ['Rock', 'Paper', 'Scissors'];
   const rdmNum = Math.floor(Math.random() * 3);
-  Computer.choice = String(choices[rdmNum]);
+  Game.computer.choice = String(choices[rdmNum]);
   computerValue.classList = 'computer-choice show';
-  computerValue.innerHTML = Computer.choice;
+  computerValue.innerHTML = Game.computer.choice;
 
   setTimeout(function(){
     overlay.style.display = 'block';
